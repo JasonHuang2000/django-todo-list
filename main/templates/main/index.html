@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+{% if todoListArr %}
+<ul>
+  {% for todoList in todoListArr %}
+  <li>
+    <a href="{% url 'main:list' todoList.id %}">{{ todoList.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No lists are available.</p>
+{% endif %}
+{% endblock %}
