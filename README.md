@@ -16,7 +16,7 @@ To start the django server, run :
 python manage.py runserver
 ```
 
-Then go to https://127.0.0.1:8000/main to view the webpage.
+Then go to http://127.0.0.1:8000/main to view the webpage.
 
 ## Libraries / Packages Used
 
