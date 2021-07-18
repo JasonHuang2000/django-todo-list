@@ -10,13 +10,13 @@
 {% endblock js %}
 
 {% block content %}
-<div class="container mt-4 full-height" id="list-section">
+<section class="container full-height" id="list-section">
   <div class="card" id="list-content-card">
     <form action="{% url 'main:list' listID %}" method="post" id="list-form">
       {% csrf_token %}
       {% if taskObjs %}
       <h1 class="card-title" id="list-title">{{ title }}</h1>
-      <div class="list-group" id="list-item-list">
+      <div class="list-group-flush" id="list-item-list">
         {% for taskObj in taskObjs %}
         <button type="button"
           class="list-group-item list-group-item-action task-button {% if taskObj.task.done %} task-finished {% endif %}"
@@ -40,14 +40,9 @@
       <button class="btn btn-outline-light" id="edit-task-btn">Edit task</button>
       {% endif %}
     </div>
-    <div class="button-wrapper">
-      <button type="button" class="btn btn-outline-secondary" id="display-options-btn" {% if not taskObjs %} disabled
-        {% endif %}>Display options</button>
-      <button type="button" class="btn btn-primary" id="new-task-btn">Add new task</button>
-    </div>
   </div>
-</div>
-<div class="container mt-4 full-height" id="display-options-section">
+</section>
+<section class="container full-height" id="display-options-section">
   <form action="{% url 'main:list' listID %}" method="post" id="display-options-form">
     {% csrf_token %}
     <legend>
@@ -82,8 +77,8 @@
       <label for="show-tasks-list">Deadline</label>
     </div>
   </form>
-</div>
-<div class="container my-4 full-height" id="new-task-section">
+</section>
+<section class="container full-height" id="new-task-section">
   <form action="{% url 'main:list' listID %}" method="post" id="new-task-form">
     {% csrf_token %}
     <legend>
@@ -102,5 +97,5 @@
       <input type="submit" class="btn btn-primary" value="submit" />
     </div>
   </form>
-</div>
+</section>
 {% endblock %}

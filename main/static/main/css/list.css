@@ -1,13 +1,10 @@
-.content .full-height {
+.main .full-height {
   height: 100vh;
-  left: 0;
-  top: 0;
-  vertical-align: middle;
 }
 
-.content #list-section #list-content-card {
+.main #list-section #list-content-card {
   width: 50%;
-  height: 75%;
+  height: 70%;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -16,60 +13,51 @@
   transform: translate(-50%, -50%);
 }
 
-.content #list-section #list-content-card #list-form {
-  height: 75%;
+.main #list-section #list-content-card #list-form {
+  height: 85%;
   display: flex;
   flex-direction: column;
 }
 
-.content #list-section #list-content-card #list-form #list-title {
+.main #list-section #list-content-card #list-form #list-title {
   margin: 5% auto;
   text-align: center;
+  flex: 0 0 auto;
 }
 
-.content #list-section #list-content-card #list-form #list-item-list {
-  margin: auto;
+.main #list-section #list-content-card #list-form #list-item-list {
+  margin: 0 auto;
   width: 70%;
   overflow: scroll;
+  flex: 1;
 }
 
-.content #list-section #list-content-card #list-form #list-item-list .task-button .icon::before {
+.main #list-section #list-content-card #list-form #list-item-list .task-button .icon::before {
   color: red;
   content: "\f5b4";
 }
 
-.content #list-section #list-content-card #list-form #list-item-list .task-button.task-finished {
+.main #list-section #list-content-card #list-form #list-item-list .task-button.task-finished {
   color: #ccc;
 }
 
-.content #list-section #list-content-card #list-form #list-item-list .task-button.task-finished .icon::before {
+.main #list-section #list-content-card #list-form #list-item-list .task-button.task-finished .icon::before {
   color: green;
   content: "\f118";
 }
 
-.content #list-section .edit-task-wrapper {
-  height: 12%;
+.main #list-section .edit-task-wrapper {
+  height: 15%;
   padding: 0 15%;
 }
 
-.content #list-section .edit-task-wrapper #edit-task-btn {
+.main #list-section .edit-task-wrapper #edit-task-btn {
   position: relative;
   float: right;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
   color: #aaa;
   border: none;
 }
 
-.content #list-section .edit-task-wrapper #edit-task-btn:hover {
+.main #list-section .edit-task-wrapper #edit-task-btn:hover {
   color: #000;
-}
-
-.content #list-section .button-wrapper {
-  height: 13%;
-  padding: 0 15%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
 }

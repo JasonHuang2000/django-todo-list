@@ -19,12 +19,6 @@
 	{% block style %}{% endblock style %}
 
 	<title>{% block title %}TODO List{% endblock %}</title>
-</head>
-
-<body>
-	<div class="content">
-		{% block content %}{% endblock %}
-	</div>
 
 	<!-- Bootstrap js -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -32,10 +26,22 @@
 	</script>
 
 	<!-- jquery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+	<!-- onepage-scroll  -->
+	<script type="text/javascript" src="{% static 'onepage-scroll-1.3.1/jquery.onepage-scroll.js' %}"></script>
+	<link href="{% static 'onepage-scroll-1.3.1/onepage-scroll.css' %}" rel="stylesheet">
 
 	<script src="{% static 'main/js/index.js' %}"></script>
 	{% block js %}{% endblock js %}
+
+
+</head>
+
+<body>
+	<div class="main">
+		{% block content %}{% endblock %}
+	</div>
 </body>
 
 </html>
