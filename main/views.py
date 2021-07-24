@@ -30,7 +30,7 @@ def todoList(request, list_id):
 
         try:
             event = request.POST['event']
-            if (event == 'taskStateChange'):
+            if (event == 'taskState'):
                 subject = request.POST['subject']
                 task_id = request.POST['id']
                 if (subject == 'done'):

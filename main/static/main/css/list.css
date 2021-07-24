@@ -1,8 +1,4 @@
-.main .full-height {
-  height: 100vh;
-}
-
-.main #list-section #list-content-card {
+.main #list-section .form-wrapper {
   width: 50%;
   height: 70%;
   margin: 0;
@@ -13,35 +9,35 @@
   transform: translate(-50%, -50%);
 }
 
-.main #list-section #list-content-card #list-form {
+.main #list-section .form-wrapper #list-form {
   height: 85%;
   display: flex;
   flex-direction: column;
 }
 
-.main #list-section #list-content-card #list-form #list-title {
+.main #list-section .form-wrapper #list-form #list-title {
   margin: 5% auto;
   text-align: center;
   flex: 0 0 auto;
 }
 
-.main #list-section #list-content-card #list-form #list-item-list {
+.main #list-section .form-wrapper #list-form #list-item-list {
   margin: 0 auto;
   width: 70%;
   overflow: scroll;
   flex: 1;
 }
 
-.main #list-section #list-content-card #list-form #list-item-list .task-button .icon::before {
+.main #list-section .form-wrapper #list-form #list-item-list .task-button .icon::before {
   color: red;
   content: "\f5b4";
 }
 
-.main #list-section #list-content-card #list-form #list-item-list .task-button.task-finished {
+.main #list-section .form-wrapper #list-form #list-item-list .task-button.task-finished {
   color: #ccc;
 }
 
-.main #list-section #list-content-card #list-form #list-item-list .task-button.task-finished .icon::before {
+.main #list-section .form-wrapper #list-form #list-item-list .task-button.task-finished .icon::before {
   color: green;
   content: "\f118";
 }
@@ -60,4 +56,29 @@
 
 .main #list-section .edit-task-wrapper #edit-task-btn:hover {
   color: #000;
+}
+
+.main #display-options-section,
+.main #new-task-section {
+  display: flex;
+}
+
+.main #display-options-section .form-wrapper,
+.main #new-task-section .form-wrapper {
+  width: 30%;
+  height: 70%;
+  margin: auto;
+}
+
+.main #display-options-section .form-wrapper .form-title,
+.main #new-task-section .form-wrapper .form-title {
+  margin: 5% auto;
+  text-align: center;
+}
+
+.main #display-options-section .form-wrapper .button-wrapper,
+.main #new-task-section .form-wrapper .button-wrapper {
+  margin: 10% 10%;
+  display: flex;
+  justify-content: space-evenly;
 }

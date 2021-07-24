@@ -10,8 +10,45 @@
 {% endblock js %}
 
 {% block content %}
-<section class="container full-height" id="list-section">
-  <div class="card" id="list-content-card">
+<section id="display-options-section">
+  <div class="form-wrapper">
+    <form action="{% url 'main:list' listID %}" method="post" id="display-options-form">
+      {% csrf_token %}
+      <h1 class="form-title">Display Options</h1>
+      <div class="form-floating mb-3">
+        <select id="show-tasks-select" class="form-select" name="show-tasks">
+          <option value="0" {% if display.showItem == "0" %} selected {% endif %}>all tasks</option>
+          <option value="1" {% if display.showItem == "1" %} selected {% endif %}>
+            undone tasks only</option>
+        </select>
+        <label for="show-tasks-list">Tasks</label>
+      </div>
+      <div class="form-floating mb-3">
+        <select id="sort-tasks-select" class="form-select" name="sort-tasks">
+          <option value="0" {% if display.sortItem == "0" %} selected {% endif %}>deadline</option>
+          <option value="1" {% if display.sortItem == "1" %} selected {% endif %}>content</option>
+          <option value="2" {% if display.sortItem == "2" %} selected {% endif %}>done/undone
+          </option>
+        </select>
+        <label for="sort-tasks-list">Sort by</label>
+      </div>
+      <div class="form-floating">
+        <select id="deadline-select" class="form-select" name="deadline">
+          <option value="0" {% if display.showDeadline == "0" %} selected {% endif %}>display full deadline</option>
+          <option value="1" {% if display.showDeadline == "1" %} selected {% endif %}>display deadline date</option>
+          <option value="2" {% if display.showDeadline == "2" %} selected {% endif %}>hide</option>
+        </select>
+        <label for="show-tasks-list">Deadline</label>
+      </div>
+      <div class="button-wrapper">
+        <input type="button" class="btn btn-outline-secondary" value="Cancel" onclick="onDisplayOptionsCancelClick()">
+        <input type="submit" class="btn btn-secondary" value="Confirm">
+      </div>
+    </form>
+  </div>
+</section>
+<section id="list-section">
+  <div class="card form-wrapper">
     <form action="{% url 'main:list' listID %}" method="post" id="list-form">
       {% csrf_token %}
       {% if taskObjs %}
@@ -20,7 +57,7 @@
         {% for taskObj in taskObjs %}
         <button type="button"
           class="list-group-item list-group-item-action task-button {% if taskObj.task.done %} task-finished {% endif %}"
-          id="{{ taskObj.task.id }}" onclick="onTaskButtonClick({{ taskObj.task.id }})">
+          id="{{ taskObj.task.id }}" onclick="onTaskBtnClick({{ taskObj.task.id }})">
           <i class="far me-2 icon"></i>
           {{ taskObj.task.content }}
           {% if display.showDeadline == '0' %}
@@ -42,60 +79,25 @@
     </div>
   </div>
 </section>
-<section class="container full-height" id="display-options-section">
-  <form action="{% url 'main:list' listID %}" method="post" id="display-options-form">
-    {% csrf_token %}
-    <legend>
-      <h2>Display Options</h2>
-    </legend>
-    <div class="form-floating mb-2">
-      <select id="show-tasks-list" class="form-select" name="show-tasks"
-        onchange="document.getElementById('display-options-form').submit()">
-        <option value="0" {% if display.showItem == "0" %} selected {% endif %}>all tasks</option>
-        <option value="1" {% if display.showItem == "1" %} selected {% endif %}>
-          undone tasks only</option>
-      </select>
-      <label for="show-tasks-list">Tasks</label>
-    </div>
-    <div class="form-floating mb-2">
-      <select id="sort-tasks-list" class="form-select" name="sort-tasks"
-        onchange="document.getElementById('display-options-form').submit()">
-        <option value="0" {% if display.sortItem == "0" %} selected {% endif %}>deadline</option>
-        <option value="1" {% if display.sortItem == "1" %} selected {% endif %}>content</option>
-        <option value="2" {% if display.sortItem == "2" %} selected {% endif %}>done/undone
-        </option>
-      </select>
-      <label for="sort-tasks-list">Sort by</label>
-    </div>
-    <div class="form-floating mb-2">
-      <select id="deadline-list" class="form-select" name="deadline"
-        onchange="document.getElementById('display-options-form').submit()">
-        <option value="0" {% if display.showDeadline == "0" %} selected {% endif %}>display full deadline</option>
-        <option value="1" {% if display.showDeadline == "1" %} selected {% endif %}>display deadline date</option>
-        <option value="2" {% if display.showDeadline == "2" %} selected {% endif %}>hide</option>
-      </select>
-      <label for="show-tasks-list">Deadline</label>
-    </div>
-  </form>
-</section>
-<section class="container full-height" id="new-task-section">
-  <form action="{% url 'main:list' listID %}" method="post" id="new-task-form">
-    {% csrf_token %}
-    <legend>
-      <h2>Add a New Task</h2>
-    </legend>
-    <div class="form-floating mb-2">
-      <textarea class="form-control" id="task-content" name="task-content" required maxlength="300"
-        placeholder="Enter the task content"></textarea>
-      <label for="task-content">Task content (300 characters maximum)</label>
-    </div>
-    <div class="input-group mb-2">
-      <span class="input-group-text">Task deadline</span>
-      <input type="datetime-local" class="form-control" id="task-deadline" name="task-deadline" required />
-    </div>
-    <div class="mt-3">
-      <input type="submit" class="btn btn-primary" value="submit" />
-    </div>
-  </form>
+<section id="new-task-section">
+  <div class="form-wrapper">
+    <form action="{% url 'main:list' listID %}" method="post" id="new-task-form">
+      {% csrf_token %}
+      <h1 class="form-title">Create New Task</h1>
+      <div class="form-floating mb-3">
+        <textarea class="form-control" id="task-content" name="task-content" required maxlength="300"
+          placeholder="Enter the task content"></textarea>
+        <label for="task-content">Task content (300 characters maximum)</label>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Task deadline</span>
+        <input type="datetime-local" class="form-control" id="task-deadline" name="task-deadline" required />
+      </div>
+      <div class="button-wrapper">
+        <input type="button" class="btn btn-outline-secondary" value="Cancel" onclick="onCreateNewCancelClick()">
+        <input type="submit" class="btn btn-secondary" value="Create">
+      </div>
+    </form>
+  </div>
 </section>
 {% endblock %}

@@ -1,10 +1,6 @@
 .main {
-  .full-height {
-    height: 100vh;
-  }
-
   #list-section {
-    #list-content-card {
+    .form-wrapper {
       width: 50%;
       height: 70%;
       margin: 0;
@@ -59,6 +55,25 @@
         &:hover {
           color: #000;
         }
+      }
+    }
+  }
+
+  #display-options-section,
+  #new-task-section {
+    display: flex;
+    .form-wrapper {
+      width: 30%;
+      height: 70%;
+      margin: auto;
+      .form-title {
+        margin: 5% auto;
+        text-align: center;
+      }
+      .button-wrapper {
+        margin: 10% 10%;
+        display: flex;
+        justify-content: space-evenly;
       }
     }
   }

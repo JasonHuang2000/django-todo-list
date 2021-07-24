@@ -11,11 +11,11 @@ const getCookie = (c_name) => {
   return "";
 };
 
-const onTaskButtonClick = (task_id) => {
+const onTaskBtnClick = (task_id) => {
   const url = $("#list-form").attr("action");
   const data = {
     csrfmiddlewaretoken: getCookie("csrftoken"),
-    event: "taskStateChange",
+    event: "taskState",
     subject: "done",
     id: task_id,
   };
@@ -28,7 +28,10 @@ const onTaskButtonClick = (task_id) => {
   });
 };
 
-const setUpOnepageScroll = () => {
+const onDisplayOptionsCancelClick = () => $(".main").moveDown();
+const onCreateNewCancelClick = () => $(".main").moveUp();
+
+const initOnepageScroll = () => {
   $(".main").onepage_scroll({
     sectionContainer: "section", // sectionContainer accepts any kind of selector in case you don't want to use section
     easing: "ease", // Easing options accepts the CSS3 easing animation such "ease", "linear", "ease-in",
@@ -47,6 +50,11 @@ const setUpOnepageScroll = () => {
   });
 };
 
+const scrollToPage = (idx) => {
+  $(".main").moveTo(idx);
+};
+
 $(function () {
-  setUpOnepageScroll();
+  initOnepageScroll();
+  scrollToPage(2);
 });
