@@ -1,3 +1,7 @@
+/* 
+  Public functions
+*/
+
 const getCookie = (c_name) => {
   if (document.cookie.length > 0) {
     c_start = document.cookie.indexOf(c_name + "=");
@@ -11,25 +15,130 @@ const getCookie = (c_name) => {
   return "";
 };
 
-const onTaskBtnClick = (task_id) => {
-  const url = $("#list-form").attr("action");
-  const data = {
-    csrfmiddlewaretoken: getCookie("csrftoken"),
-    event: "taskState",
-    subject: "done",
-    id: task_id,
+const generateTimeFormat = (str) => {
+  if (str === "") return "";
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
-  $.post(url, data, (res) => {
-    if (res.done === true) {
-      $(`#list-item-list #${res.id}`).addClass("task-finished");
-    } else {
-      $(`#list-item-list #${res.id}`).removeClass("task-finished");
+  const date = new Date(str);
+  if (str.charAt(str.length - 1) !== "Z") {
+    return `(${date
+      .toLocaleString("en-US", options)
+      .replace("AM", "a.m.")
+      .replace("PM", "p.m.")})`;
+  } else if (date.getMinutes() == 0) {
+    options.hour = "numeric";
+    return `(${date
+      .toLocaleString("en-US", options)
+      .replace("AM", "a.m.")
+      .replace("PM", "p.m.")})`;
+  } else {
+    options.hour = "numeric";
+    options.minute = "2-digit";
+    return `(${date
+      .toLocaleString("en-US", options)
+      .replace("AM", "a.m.")
+      .replace("PM", "p.m.")})`;
+  }
+};
+
+const renderTaskList = (task_objs) => {
+  $(".task-button").remove();
+  task_objs.forEach((element) => {
+    const { content, deadline, done, id } = element;
+    const deadline_formatted = generateTimeFormat(deadline);
+    $("#list-item-list").append(`
+        <button type="button"
+          class="list-group-item list-group-item-action task-button"
+          id="task-${id}" 
+          onclick="onTaskBtnClick(${id})">
+          <i class="far me-2 icon"></i> ${content} ${deadline_formatted} 
+        </button>`);
+    if (done) {
+      $(`#task-${id}`).addClass("task-finished");
     }
   });
 };
 
+/* 
+  Task section
+*/
+
+const onTaskBtnClick = (task_id) => {
+  if ($("#edit-task-btn").hasClass("editing") === true) {
+  } else {
+    const url = $("#list-form").attr("action");
+    const data = {
+      csrfmiddlewaretoken: getCookie("csrftoken"),
+      event: "task-state",
+      subject: "done",
+      id: task_id,
+    };
+    $.post(url, data, (res) => {
+      renderTaskList(res.taskObjs);
+    });
+  }
+};
+
+const onEditTaskBtnClick = () => {
+  const btn = $("#edit-task-btn");
+  if (btn.hasClass("editing") === true) {
+    $(".task-button").removeClass("editing");
+    btn.removeClass("editing");
+    btn.html("Edit Task");
+  } else {
+    $(".task-button").addClass("editing");
+    btn.addClass("editing");
+    btn.html("Cancel");
+  }
+};
+
+/*
+  Display options section
+*/
+
+const onDisplayOptionsSubmitClick = () => {
+  const url = $("#display-options-form").attr("action");
+  const data = {
+    csrfmiddlewaretoken: getCookie("csrftoken"),
+    event: "display-options",
+    method_deadline: $("#deadline-select").val(),
+    method_showTask: $("#show-tasks-select").val(),
+    method_sortTask: $("#sort-tasks-select").val(),
+  };
+  $.post(url, data, (res) => {
+    renderTaskList(res.taskObjs);
+    $(".main").moveDown();
+  });
+};
+
 const onDisplayOptionsCancelClick = () => $(".main").moveDown();
+
+/* 
+  Create new task section
+*/
+
+const onCreateNewSubmitClick = () => {
+  const url = $("#new-task-form").attr("action");
+  const data = {
+    csrfmiddlewaretoken: getCookie("csrftoken"),
+    event: "new-task",
+    task_content: $("#task-content").val(),
+    task_deadline: $("#task-deadline").val(),
+  };
+  $.post(url, data, (res) => {
+    renderTaskList(res.taskObjs);
+    $(".main").moveUp();
+  });
+};
+
 const onCreateNewCancelClick = () => $(".main").moveUp();
+
+/* 
+  Onepage-scroll
+*/
 
 const initOnepageScroll = () => {
   $(".main").onepage_scroll({
@@ -53,6 +162,10 @@ const initOnepageScroll = () => {
 const scrollToPage = (idx) => {
   $(".main").moveTo(idx);
 };
+
+/* 
+  Start up process
+*/
 
 $(function () {
   initOnepageScroll();

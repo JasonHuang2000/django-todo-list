@@ -1,14 +1,21 @@
 .main {
   #list-section {
+    .upper-section,
+    .lower-section {
+      width: 100%;
+      height: 15%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        margin-bottom: 5px;
+      }
+    }
     .form-wrapper {
       width: 50%;
       height: 70%;
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
+      margin: auto;
+      position: relative;
 
       #list-form {
         height: 85%;
@@ -38,6 +45,9 @@
                 color: green;
                 content: "\f118"; // smile face
               }
+            }
+            &.editing:hover {
+              box-shadow: inset 0 0 0 2px black;
             }
           }
         }

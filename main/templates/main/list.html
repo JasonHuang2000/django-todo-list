@@ -42,12 +42,16 @@
       </div>
       <div class="button-wrapper">
         <input type="button" class="btn btn-outline-secondary" value="Cancel" onclick="onDisplayOptionsCancelClick()">
-        <input type="submit" class="btn btn-secondary" value="Confirm">
+        <input type="button" class="btn btn-secondary" value="Confirm" onclick="onDisplayOptionsSubmitClick()">
       </div>
     </form>
   </div>
 </section>
 <section id="list-section">
+  <div class="upper-section">
+    <i class="fas fa-angle-double-up me-3"></i>
+    Scroll UP to choose different display method
+  </div>
   <div class="card form-wrapper">
     <form action="{% url 'main:list' listID %}" method="post" id="list-form">
       {% csrf_token %}
@@ -56,16 +60,13 @@
       <div class="list-group-flush" id="list-item-list">
         {% for taskObj in taskObjs %}
         <button type="button"
-          class="list-group-item list-group-item-action task-button {% if taskObj.task.done %} task-finished {% endif %}"
-          id="{{ taskObj.task.id }}" onclick="onTaskBtnClick({{ taskObj.task.id }})">
+          class="list-group-item list-group-item-action task-button {% if taskObj.done %} task-finished {% endif %}"
+          id="task-{{ taskObj.id }}" onclick="onTaskBtnClick({{ taskObj.id }})">
           <i class="far me-2 icon"></i>
-          {{ taskObj.task.content }}
-          {% if display.showDeadline == '0' %}
-          ({{ taskObj.task.deadline }})
-          {% elif display.showDeadline == '1' %}
-          ({{ taskObj.date }})
-          {% endif %}
+          {{ taskObj.content }} {% if taskObj.deadline %}({{ taskObj.deadline }}){% endif %}
         </button>
+        {% comment %} <div class="modal-dialog modal-dialog-centered" id="modal-{{ taskObj.id }}"></div>
+        {% endcomment %}
         {% endfor %}
       </div>
       {% else %}
@@ -74,9 +75,13 @@
     </form>
     <div class="edit-task-wrapper">
       {% if taskObjs %}
-      <button class="btn btn-outline-light" id="edit-task-btn">Edit task</button>
+      <button class="btn btn-outline-light" id="edit-task-btn" onclick="onEditTaskBtnClick()">Edit task</button>
       {% endif %}
     </div>
+  </div>
+  <div class="lower-section">
+    <i class="fas fa-angle-double-down me-3"></i>
+    Scroll DOWN to create new task
   </div>
 </section>
 <section id="new-task-section">
@@ -95,7 +100,7 @@
       </div>
       <div class="button-wrapper">
         <input type="button" class="btn btn-outline-secondary" value="Cancel" onclick="onCreateNewCancelClick()">
-        <input type="submit" class="btn btn-secondary" value="Create">
+        <input type="button" class="btn btn-secondary" value="Create" onclick="onCreateNewSubmitClick()">
       </div>
     </form>
   </div>
