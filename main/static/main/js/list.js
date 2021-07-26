@@ -62,6 +62,17 @@ const renderTaskList = (task_objs) => {
   });
 };
 
+const disableScrolling = () => {
+  $("#list-item-list").on({
+    mouseover: () => {
+      $(".main").disable();
+    },
+    mouseleave: () => {
+      $(".main").enable();
+    },
+  });
+};
+
 /* 
   Task section
 */
@@ -169,5 +180,6 @@ const scrollToPage = (idx) => {
 
 $(function () {
   initOnepageScroll();
+  disableScrolling();
   scrollToPage(2);
 });
