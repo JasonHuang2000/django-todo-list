@@ -25,3 +25,9 @@ Then go to http://127.0.0.1:8000/main to view the webpage.
 - [django-sass](https://github.com/coderedcorp/django-sass)
 - [django-fontawesome-5](https://pypi.org/project/django-fontawesome-5/)
 - [onepage-scroll](https://github.com/peachananr/onepage-scroll)
+
+## Appendix
+
+1. Some modifications are done in the script `jquery.onepage-scroll.js`.
+  - I use a [variation](https://gist.github.com/AlexeySachkov/7c526e6729fee936acde) of onepage-scroll that was forked from the original project. This variation provides the ability to enable/disable onepage-scroll when needed.
+  - According to [this reply](https://github.com/peachananr/onepage-scroll/issues/346#issuecomment-547004469), I change some lines in the outdated script which will cause warning in Chrome.
