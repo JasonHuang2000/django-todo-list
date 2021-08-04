@@ -97,17 +97,34 @@ def todoList(request, list_id):
 
         try:
             event = request.POST['event']
-            if (event == 'task-state'):
+            if event == 'get-task-info':
+                task_id = int(request.POST['id'])
+                task = tl.task_set.get(id=task_id)
+                return JsonResponse({
+                    'taskInfo': {
+                        'id': task.id,
+                        'content': task.content,
+                        'deadline': task.deadline,
+                        'done': task.done,
+                    },
+                })
+            elif event == 'task-state':
                 subject = request.POST['subject']
-                task_id = request.POST['id']
-                if (subject == 'done'):
-                    t = tl.task_set.get(id=task_id)
+                task_id = int(request.POST['id'])
+                t = tl.task_set.get(id=task_id)
+                if subject == 'done':
                     t.done = not t.done
                     t.save()
-                    return JsonResponse({
-                        'taskObjs': generateTaskObjects(conf, tl)
-                    })
-            elif (event == 'display-options'):
+                elif subject == 'update':
+                    t.content = request.POST['content']
+                    t.deadline = request.POST['deadline']
+                    t.save()
+                elif subject == 'delete':
+                    t.delete()
+                return JsonResponse({
+                    'taskObjs': generateTaskObjects(conf, tl)
+                })
+            elif event == 'display-options':
                 method_deadline = int(request.POST['method_deadline'])
                 method_showTask = int(request.POST['method_showTask'])
                 method_sortTask = int(request.POST['method_sortTask'])
@@ -117,7 +134,7 @@ def todoList(request, list_id):
                 return JsonResponse({
                     'taskObjs': generateTaskObjects(conf, tl)
                 })
-            elif (event == 'new-task'):
+            elif event == 'new-task':
                 content = request.POST['task_content']
                 deadline = request.POST['task_deadline']
                 tl.task_set.create(

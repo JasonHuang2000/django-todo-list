@@ -62,7 +62,7 @@ const renderTaskList = (task_objs) => {
   });
 };
 
-const disableScrolling = () => {
+const disableListScrolling = () => {
   $("#list-item-list").on({
     mouseover: () => {
       $(".main").disable();
@@ -78,9 +78,20 @@ const disableScrolling = () => {
 */
 
 const onTaskBtnClick = (task_id) => {
+  const url = $("#list-form").attr("action");
   if ($("#edit-task-btn").hasClass("editing") === true) {
+    const data = {
+      csrfmiddlewaretoken: getCookie("csrftoken"),
+      event: "get-task-info",
+      id: task_id,
+    };
+    $.post(url, data, (res) => {
+      const info = res.taskInfo;
+      $("#edit-task-content").val(info.content);
+      $("#edit-task-deadline").val(info.deadline.replace("Z", ""));
+      $("#edit-task-id").val(info.id);
+    });
   } else {
-    const url = $("#list-form").attr("action");
     const data = {
       csrfmiddlewaretoken: getCookie("csrftoken"),
       event: "task-state",
@@ -96,14 +107,53 @@ const onTaskBtnClick = (task_id) => {
 const onEditTaskBtnClick = () => {
   const btn = $("#edit-task-btn");
   if (btn.hasClass("editing") === true) {
-    $(".task-button").removeClass("editing");
+    $(".task-button").removeClass("editing").attr({
+      "data-bs-toggle": "",
+      "data-bs-target": "",
+    });
     btn.removeClass("editing");
     btn.html("Edit Task");
   } else {
-    $(".task-button").addClass("editing");
+    $(".task-button").addClass("editing").attr({
+      "data-bs-toggle": "modal",
+      "data-bs-target": "#edit-task-modal",
+    });
     btn.addClass("editing");
     btn.html("Cancel");
   }
+};
+
+/*
+  Edit task modal
+*/
+
+const onDeleteTaskClick = () => {
+  const url = $("#edit-task-form").attr("action");
+  const data = {
+    csrfmiddlewaretoken: getCookie("csrftoken"),
+    event: "task-state",
+    subject: "delete",
+    id: $("#edit-task-id").val(),
+  };
+  $.post(url, data, (res) => {
+    renderTaskList(res.taskObjs);
+  });
+};
+
+const onSaveChangesClick = () => {
+  const url = $("#edit-task-form").attr("action");
+  const data = {
+    csrfmiddlewaretoken: getCookie("csrftoken"),
+    event: "task-state",
+    subject: "update",
+    id: $("#edit-task-id").val(),
+    content: $("#edit-task-content").val(),
+    deadline: $("#edit-task-deadline").val(),
+  };
+  $.post(url, data, (res) => {
+    console.log(res);
+    renderTaskList(res.taskObjs);
+  });
 };
 
 /*
@@ -180,6 +230,6 @@ const scrollToPage = (idx) => {
 
 $(function () {
   initOnepageScroll();
-  disableScrolling();
+  disableListScrolling();
   scrollToPage(2);
 });
