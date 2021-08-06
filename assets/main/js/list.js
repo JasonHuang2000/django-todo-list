@@ -44,7 +44,7 @@ const generateTimeFormat = (str) => {
   }
 };
 
-const renderTaskList = (task_objs) => {
+const renderTaskList = (task_objs, editing) => {
   $(".task-button").remove();
   task_objs.forEach((element) => {
     const { content, deadline, done, id } = element;
@@ -58,6 +58,12 @@ const renderTaskList = (task_objs) => {
         </button>`);
     if (done) {
       $(`#task-${id}`).addClass("task-finished");
+    }
+    if (editing) {
+      $(".task-button").addClass("editing").attr({
+        "data-bs-toggle": "modal",
+        "data-bs-target": "#edit-task-modal",
+      });
     }
   });
 };
@@ -99,14 +105,14 @@ window.onTaskBtnClick = (task_id) => {
       id: task_id,
     };
     $.post(url, data, (res) => {
-      renderTaskList(res.taskObjs);
+      renderTaskList(res.taskObjs, false);
     });
   }
 };
 
 window.onEditTaskBtnClick = () => {
   const btn = $("#edit-task-btn");
-  if (btn.hasClass("editing") === true) {
+  if (btn.hasClass("editing")) {
     $(".task-button").removeClass("editing").attr({
       "data-bs-toggle": "",
       "data-bs-target": "",
@@ -136,7 +142,7 @@ window.onDeleteTaskClick = () => {
     id: $("#edit-task-id").val(),
   };
   $.post(url, data, (res) => {
-    renderTaskList(res.taskObjs);
+    renderTaskList(res.taskObjs, true);
   });
 };
 
@@ -152,7 +158,7 @@ window.onSaveChangesClick = () => {
   };
   $.post(url, data, (res) => {
     console.log(res);
-    renderTaskList(res.taskObjs);
+    renderTaskList(res.taskObjs, true);
   });
 };
 
@@ -170,7 +176,7 @@ window.onDisplayOptionsSubmitClick = () => {
     method_sortTask: $("#sort-tasks-select").val(),
   };
   $.post(url, data, (res) => {
-    renderTaskList(res.taskObjs);
+    renderTaskList(res.taskObjs, false);
     $(".main").moveDown();
   });
 };
