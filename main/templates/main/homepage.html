@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block style %}
+<!-- Required Core Stylesheet -->
+<link rel="stylesheet" href="/node_modules/@glidejs/glide/dist/css/glide.core.min.css">
+<!-- Optional Theme Stylesheet -->
+<link rel="stylesheet" href="/node_modules/@glidejs/glide/dist/css/glide.theme.min.css">
+{% endblock style %}
+
+{% block js %}
+<script src="{% static 'main/js/homepage.js' %}"></script>
+{% endblock js %}
+
+{% block content %}
+{% if todoListArr %}
+<div class="glide">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      <li class="glide__slide">0</li>
+      <li class="glide__slide">1</li>
+      <li class="glide__slide">2</li>
+    </ul>
+  </div>
+  <div class="glide__arrows" data-glide-el="controls">
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+  </div>
+</div>
+{% comment %} <ul>
+  {% for todoList in todoListArr %}
+  <li>
+    <a href="{% url 'main:list' todoList.id %}">{{ todoList.title }}</a>
+  </li>
+  {% endfor %}
+</ul> {% endcomment %}
+{% else %}
+<p>No lists are available.</p>
+{% endif %}
+{% endblock %}

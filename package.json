@@ -1,0 +1,29 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "A small project made by Jason Huang at 2021 summer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development --watch",
+    "sass": "sass --watch assets/main/sass:static/main/css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JasonHuang2000/django-todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JasonHuang2000/django-todo-list/issues"
+  },
+  "homepage": "https://github.com/JasonHuang2000/django-todo-list#readme",
+  "devDependencies": {
+    "webpack": "^5.48.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.4.1"
+  }
+}

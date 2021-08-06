@@ -6,12 +6,12 @@ from .models import TodoList, Task
 # Create your views here.
 
 
-def index(request):
+def homepage(request):
     todoListArr = TodoList.objects.order_by('id')
     context = {
         'todoListArr': todoListArr,
     }
-    return render(request, 'main/index.html', context)
+    return render(request, 'main/homepage.html', context)
 
 
 class Config:

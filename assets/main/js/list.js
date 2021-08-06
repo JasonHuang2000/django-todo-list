@@ -77,7 +77,7 @@ const disableListScrolling = () => {
   Task section
 */
 
-const onTaskBtnClick = (task_id) => {
+window.onTaskBtnClick = (task_id) => {
   const url = $("#list-form").attr("action");
   if ($("#edit-task-btn").hasClass("editing") === true) {
     const data = {
@@ -104,7 +104,7 @@ const onTaskBtnClick = (task_id) => {
   }
 };
 
-const onEditTaskBtnClick = () => {
+window.onEditTaskBtnClick = () => {
   const btn = $("#edit-task-btn");
   if (btn.hasClass("editing") === true) {
     $(".task-button").removeClass("editing").attr({
@@ -127,7 +127,7 @@ const onEditTaskBtnClick = () => {
   Edit task modal
 */
 
-const onDeleteTaskClick = () => {
+window.onDeleteTaskClick = () => {
   const url = $("#edit-task-form").attr("action");
   const data = {
     csrfmiddlewaretoken: getCookie("csrftoken"),
@@ -140,7 +140,7 @@ const onDeleteTaskClick = () => {
   });
 };
 
-const onSaveChangesClick = () => {
+window.onSaveChangesClick = () => {
   const url = $("#edit-task-form").attr("action");
   const data = {
     csrfmiddlewaretoken: getCookie("csrftoken"),
@@ -160,7 +160,7 @@ const onSaveChangesClick = () => {
   Display options section
 */
 
-const onDisplayOptionsSubmitClick = () => {
+window.onDisplayOptionsSubmitClick = () => {
   const url = $("#display-options-form").attr("action");
   const data = {
     csrfmiddlewaretoken: getCookie("csrftoken"),
@@ -175,13 +175,13 @@ const onDisplayOptionsSubmitClick = () => {
   });
 };
 
-const onDisplayOptionsCancelClick = () => $(".main").moveDown();
+window.onDisplayOptionsCancelClick = () => $(".main").moveDown();
 
 /* 
   Create new task section
 */
 
-const onCreateNewSubmitClick = () => {
+window.onCreateNewSubmitClick = () => {
   const url = $("#new-task-form").attr("action");
   const data = {
     csrfmiddlewaretoken: getCookie("csrftoken"),
@@ -195,7 +195,7 @@ const onCreateNewSubmitClick = () => {
   });
 };
 
-const onCreateNewCancelClick = () => $(".main").moveUp();
+window.onCreateNewCancelClick = () => $(".main").moveUp();
 
 /* 
   Onepage-scroll

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .main #list-section .upper-section,
 .main #list-section .lower-section {
   width: 100%;
@@ -6,93 +7,79 @@
   justify-content: center;
   align-items: center;
 }
-
 .main #list-section .upper-section i,
 .main #list-section .lower-section i {
   margin-bottom: 5px;
 }
-
 .main #list-section .form-wrapper {
   width: 50%;
   height: 70%;
   margin: auto;
   position: relative;
 }
-
 .main #list-section .form-wrapper #list-form {
   height: 85%;
   display: flex;
   flex-direction: column;
 }
-
 .main #list-section .form-wrapper #list-form #list-title {
   margin: 5% auto;
   text-align: center;
   flex: 0 0 auto;
 }
-
 .main #list-section .form-wrapper #list-form #list-item-list {
   margin: 0 auto;
   width: 70%;
   overflow: scroll;
   flex: 1;
 }
-
 .main #list-section .form-wrapper #list-form #list-item-list .task-button .icon::before {
   color: red;
-  content: "\f5b4";
+  content: "";
 }
-
 .main #list-section .form-wrapper #list-form #list-item-list .task-button.task-finished {
   color: #ccc;
 }
-
 .main #list-section .form-wrapper #list-form #list-item-list .task-button.task-finished .icon::before {
   color: green;
-  content: "\f118";
+  content: "";
 }
-
 .main #list-section .form-wrapper #list-form #list-item-list .task-button.editing:hover {
   box-shadow: inset 0 0 0 2px black;
 }
-
 .main #list-section .edit-task-wrapper {
   height: 15%;
   padding: 0 15%;
 }
-
 .main #list-section .edit-task-wrapper #edit-task-btn {
   position: relative;
   float: right;
   color: #aaa;
   border: none;
 }
-
 .main #list-section .edit-task-wrapper #edit-task-btn:hover {
   color: #000;
 }
-
 .main #display-options-section,
 .main #new-task-section {
   display: flex;
 }
-
 .main #display-options-section .form-wrapper,
 .main #new-task-section .form-wrapper {
   width: 30%;
   height: 70%;
   margin: auto;
 }
-
 .main #display-options-section .form-wrapper .form-title,
 .main #new-task-section .form-wrapper .form-title {
   margin: 5% auto;
   text-align: center;
 }
-
 .main #display-options-section .form-wrapper .button-wrapper,
 .main #new-task-section .form-wrapper .button-wrapper {
   margin: 10% 10%;
   display: flex;
   justify-content: space-evenly;
 }
+
+/*# sourceMappingURL=list.css.map */
