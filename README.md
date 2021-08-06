@@ -22,9 +22,11 @@ Then go to http://127.0.0.1:8000/main to view the webpage.
 
 - [jQuery 3.5.1](https://api.jquery.com/)
 - [Bootstrap 5.0.1](https://getbootstrap.com/docs/5.0/)
-- [django-sass](https://github.com/coderedcorp/django-sass)
+- [sass](https://sass-lang.com/documentation)
+- [webpack](https://webpack.js.org/)
 - [django-fontawesome-5](https://pypi.org/project/django-fontawesome-5/)
 - [onepage-scroll](https://github.com/peachananr/onepage-scroll)
+- [Glide.js](https://glidejs.com/)
 
 ## Appendix
 
